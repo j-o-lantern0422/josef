@@ -7,6 +7,8 @@ module Josef
 
     desc "dump", "dump google workspace group"
     def dump
+      binding.irb
+
       p client
     end
   end
