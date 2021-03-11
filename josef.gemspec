@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.add_dependency "google-api-client"
   spec.add_dependency "thor"
+  spec.add_dependency "activesupport"
 end

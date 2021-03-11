@@ -1,15 +1,14 @@
 require "josef/google_workspace/client"
+require "josef/dump"
 module Josef
   class Cli < Thor
     include Josef::GoogleWorkspace::Client
-
+    include Josef::Dump
     class_option :dry_run, :type => :boolean, :default => false
 
     desc "dump", "dump google workspace group"
     def dump
-      binding.irb
-
-      p client
+      remote_dump
     end
   end
 end
