@@ -3,6 +3,7 @@ PATH
   specs:
     josef (0.1.0)
       google-api-client
+      thor
 
 GEM
   remote: https://rubygems.org/
