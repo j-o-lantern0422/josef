@@ -1,8 +1,8 @@
 # Josef
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/josef`. To experiment with that code, run `bin/console` for an interactive prompt.
+## What's This?
 
-TODO: Delete this and the text above, and describe your gem
+Josef is manage Google Group on Google Workspace cli tool. It can dump Google Groups, specific domain's in `domains.yml`. And, apply and dry run with dumped yaml.
 
 ## Installation
 
@@ -22,6 +22,14 @@ Or install it yourself as:
 
 ## Usage
 
+### Environment Variables
+
+You can configure setting for domains file and actor with environment valiables.
+
+`GOOGLE_WORKSPACE_ACTOR` : Josef use Service Account Key, and Admin SDK. So, You must set Googlge Workspace Administrator's primary mail address.
+
+`DOMAINS_FILE_PATH` : Google Group API is include domain in List Groups request. Josef is not manage Domains. You can configure josef manage target domains in yaml file. Please see `domains.yaml.sample`
+
 ### dump groups and members yaml file
 
 ```sh
@@ -34,7 +42,7 @@ josef dump
 josef diff ./local_group_file.yml
 ```
 
-### apply(future)
+### apply
 
 ```
 josef apply ./local_group_file.yml
@@ -50,6 +58,19 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/josef.
 
+## Future
+
+### Spec
+
+Josef not have test.
+
+### Oauth Token?
+
+This tool manages Google Groups based on yaml. Therefore, I think that the administrator of Google WorkSpace may run it in the local environment. If the purpose is achieved with the service account and you want to use oauth authentication, we will handle it.
+
+### Domain Management?
+
+I'm not thinking about domain management for now. It doesn't make sense to be able to add it (because it also requires changing the DNS server settings), and I think it's a little too big to be able to delete it.
 
 ## License
 
