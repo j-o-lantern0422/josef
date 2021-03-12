@@ -14,16 +14,6 @@ module Josef
           client.list_groups(domain: domain).groups
         end.flatten.compact
       end
-
-      def remote
-        @_remote ||= remote!
-      end
-
-      def remote!
-        groups.map do | group |
-          { group_mail_address: group.email, members: member_mail_addreses(group) }
-        end
-      end
     end
   end
 end

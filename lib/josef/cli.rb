@@ -1,9 +1,11 @@
 require "josef/google_workspace/client"
-require "josef/dump"
+require "josef/remote"
+require "josef/diff"
 module Josef
   class Cli < Thor
     include Josef::GoogleWorkspace::Client
     include Josef::Remote
+    include Josef::Diff
     class_option :dry_run, :type => :boolean, :default => false
 
     desc "dump", "dump google workspace group"
@@ -14,8 +16,8 @@ module Josef
     desc "diff [Path]", "print diff defferent local yaml and remote"
     method_options path: :string
     def diff(path)
-      local = YAML.load_file(path)
-      remote_diff(remote_dump, local)
+      local_groups = local(path)
+      remote_diff(remote, local_groups)
     end
   end
 end
