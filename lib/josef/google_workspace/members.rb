@@ -13,13 +13,13 @@ module Josef
 
       def add_member(group_mail_address, member_mail_address)
         member = ::Google::Apis::AdminDirectoryV1::Member.new(email: member_mail_address)
-        group = groups.find{|g| g[:group_mail_address] == group_mail_address}
+        group = groups.find{|g| g.email == group_mail_address}
         client.insert_member(group.id, member)
       end
 
       def del_member(group_mail_address, member_mail_address)
+        group = groups.find{|g| g.email == group_mail_address}
         member = members_by(group).find{ |member| member.email == member_mail_address }
-        group = groups.find{|g| g[:group_mail_address] == group_mail_address}
         client.delete_member(group.id, member.id)
       end
     end
