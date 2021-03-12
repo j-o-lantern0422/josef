@@ -17,7 +17,7 @@ module Josef
     method_options path: :string
     def diff(path)
       local(path)
-      remote_diff(remote, local)
+      remote_diff(remote, local, "dry run")
     end
 
     desc "apply [Path]", "apply local yaml to Google Workspace"

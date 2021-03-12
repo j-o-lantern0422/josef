@@ -20,15 +20,15 @@ module Josef
       local.find{|g| g[:group_mail_address] == remote_group[:group_mail_address]}.nil?
     end
 
-    def remote_diff(remote, local)
+    def remote_diff(remote, local, mode = "apply")
       local.each do | local_group |
         if be_create?(local_group)
-          puts "#{local_group[:group_mail_address]} will be create"
+          puts "#{local_group[:group_mail_address]} will be create:#{mode}"
           local_group[:members].each do | member |
             puts "+ #{member}"
           end
         elsif changed?(local_group)
-          puts "#{local_group[:group_mail_address]} will be change"
+          puts "#{local_group[:group_mail_address]} will be change:#{mode}"
           remote_members = remote.find{|g| g[:group_mail_address] == local_group[:group_mail_address]}[:members]
 
           add = local_group[:members] - remote_members
@@ -46,7 +46,7 @@ module Josef
 
       remote.each do | remote_group |
         if be_delete?(remote_group)
-          puts "#{remote_group[:group_mail_address]} will be delete"
+          puts "#{remote_group[:group_mail_address]} will be delete:#{mode}"
         end
       end
     end
