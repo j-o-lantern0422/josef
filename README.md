@@ -22,7 +22,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### dump groups and members yaml file
+
+```sh
+josef dump
+```
+
+### dry run(show diff)
+
+```sh
+josef diff ./local_group_file.yml
+```
+
+### apply(future)
+
+```
+josef apply ./local_group_file.yml
+```
 
 ## Development
 
