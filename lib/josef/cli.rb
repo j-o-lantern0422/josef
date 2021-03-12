@@ -16,8 +16,8 @@ module Josef
     desc "diff [Path]", "print diff defferent local yaml and remote"
     method_options path: :string
     def diff(path)
-      local_groups = local(path)
-      remote_diff(remote, local_groups)
+      local(path)
+      remote_diff(remote, local)
     end
   end
 end
