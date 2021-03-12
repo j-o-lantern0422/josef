@@ -10,5 +10,12 @@ module Josef
     def dump
       remote_dump
     end
+
+    desc "diff [Path]", "print diff defferent local yaml and remote"
+    method_options path: :string
+    def diff(path)
+      local = YAML.load_file(path)
+      remote_diff(remote_dump, local)
+    end
   end
 end
