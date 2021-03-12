@@ -19,5 +19,16 @@ module Josef
       local(path)
       remote_diff(remote, local)
     end
+
+    desc "apply [Path]", "apply local yaml to Google Workspace"
+    def apply(path)
+      local(path)
+      remote_apply(local)
+    end
+
+    desc "console", "console"
+    def console
+      binding.irb
+    end
   end
 end
