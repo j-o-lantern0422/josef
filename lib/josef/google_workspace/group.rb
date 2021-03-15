@@ -11,7 +11,17 @@ module Josef
 
       def groups!
         domains.map do | domain |
-          client.list_groups(domain: domain).groups
+          res = client.list_groups(domain: domain)
+          domain_groups = res.groups
+          next_page_token = res.next_page_token
+
+          while next_page_token.nil?.!
+            res = client.list_groups(domain: domain, page_token: next_page_token)
+            next_page_token = res.next_page_token
+            domain_groups.concat(res.groups)
+          end
+
+          domain_groups
         end.flatten.compact
       end
 
