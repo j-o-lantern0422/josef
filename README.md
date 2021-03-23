@@ -58,7 +58,7 @@ exclued_groups:
 ```
 
 ```sh
-josef apply ./local_group_file.yml --exculude ./excluded_groups.yml
+josef apply ./local_group_file.yml --exclude ./excluded_groups.yml
 ```
 
 ## Development
