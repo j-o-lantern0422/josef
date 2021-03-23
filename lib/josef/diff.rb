@@ -4,6 +4,13 @@ module Josef
   module Diff
     include Josef::Remote
     include Josef::Local
+
+    def should_be_tareget?(local_group)
+      return false if exculued?(local_group[:group_mail_address])
+
+      true
+    end
+
     def changed?(local_group)
       remote_group = remote.find{|g| g[:group_mail_address] == local_group[:group_mail_address]}
       return false if local_group[:members].nil? || remote_group[:members].nil?
@@ -22,6 +29,8 @@ module Josef
 
     def remote_diff(remote, local, mode = "apply")
       local.each do | local_group |
+        next if should_be_tareget?(local_group[:group_mail_address])
+
         if be_create?(local_group)
           puts "#{local_group[:group_mail_address]} will be create:#{mode}"
           local_group[:members].each do | member |
@@ -45,6 +54,8 @@ module Josef
       end
 
       remote.each do | remote_group |
+        next if should_be_tareget?(local_group[:group_mail_address])
+
         if be_delete?(remote_group)
           puts "#{remote_group[:group_mail_address]} will be delete:#{mode}"
         end
