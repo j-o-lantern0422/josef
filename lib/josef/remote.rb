@@ -23,6 +23,8 @@ module Josef
     def remote_apply(local)
       remote_diff(remote, local)
       local.each do | local_group |
+        next unless should_be_tareget?(local_group)
+
         if be_create?(local_group)
           create_group(local_group[:group_mail_address])
 
@@ -46,6 +48,8 @@ module Josef
       end
 
       remote.each do | remote_group |
+        next unless should_be_tareget?(remote_group)
+
         if be_delete?(remote_group)
           delete_group(remote_group[:group_mail_address])
         end
