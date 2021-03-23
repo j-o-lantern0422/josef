@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    josef (0.2.0)
+    josef (0.3.0)
       activesupport
       google-api-client
       thor
