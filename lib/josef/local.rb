@@ -22,9 +22,9 @@ module Josef
     end
 
     def exculued_groups!(exculued_groups_file)
-      return [] exculued_groups_file.nil?
+      return [] if exculued_groups_file.nil?
 
-      YAML.load_file(exculued_groups_file).map{|h| h.deep_symbolize_keys}[:exculued_groups]
+      YAML.load_file(exculued_groups_file).symbolize_keys[:exculued_groups]
     end
   end
 end
