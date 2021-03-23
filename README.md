@@ -44,8 +44,21 @@ josef diff ./local_group_file.yml
 
 ### apply
 
-```
+```sh
 josef apply ./local_group_file.yml
+```
+
+Josef can config exculusion group mail addresses.example
+
+```yaml
+---
+exclued_groups:
+  - hoge@ml.example.com
+  - foo@example.com
+```
+
+```sh
+josef apply ./local_group_file.yml --exculude ./excluded_groups.yml
 ```
 
 ## Development

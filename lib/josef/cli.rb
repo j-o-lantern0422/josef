@@ -7,6 +7,18 @@ module Josef
     include Josef::Remote
     include Josef::Diff
     class_option :dry_run, :type => :boolean, :default => false
+    class_option :exclude, :type => :string,  :default => nil
+
+    no_commands do
+      def invoke_command(command, *args)
+        prepare
+        super
+      end
+
+      def prepare
+        exculued_groups(options[:exclude])
+      end
+    end
 
     desc "dump", "dump google workspace group"
     def dump

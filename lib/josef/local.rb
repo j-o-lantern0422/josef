@@ -8,7 +8,23 @@ module Josef
     end
 
     def local!(local_file)
+      return [] if local_file.nil?
+
       YAML.load_file(local_file).map{|h| h.deep_symbolize_keys}
+    end
+
+    def exculued?(group_mail_address)
+      exculued_groups.include?(group_mail_address)
+    end
+
+    def exculued_groups(exculued_groups_file = nil)
+      @_exculued_groups ||= exculued_groups!(exculued_groups_file)
+    end
+
+    def exculued_groups!(exculued_groups_file)
+      return [] if exculued_groups_file.nil?
+
+      YAML.load_file(exculued_groups_file).symbolize_keys[:exculued_groups]
     end
   end
 end
