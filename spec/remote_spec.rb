@@ -21,9 +21,8 @@ RSpec.describe Josef do
       allow(josef.client).to receive(:list_members).and_return(response("members.list"))
       allow(josef).to receive(:domains).and_return(domains)
       allow(josef).to receive(:actor).and_return(actor)
-      binding.irb
     end
-    it "has a version number" do
+    it "can fetch remote groups" do
       remote_groups = [
         {
           :group_mail_address=>"test@ml.example.com",
