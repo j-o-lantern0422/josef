@@ -17,8 +17,12 @@ def fixture(api_method)
   JSON.parse(File.read("spec/fixtures/#{api_method}.json")).deep_symbolize_keys
 end
 
+def local_groups_path
+  "spec/local_files/local_groups.yml"
+end
+
 def members_response
-  member1 = ::Google::Apis::AdminDirectoryV1::Member.new({
+  member1 = ::Google::Apis::AdminDirectoryV1::Member.new(**{
     "kind": "admin#directory#member",
     "etag": "\"kaqc57-i7NoUBo7psvjUJg\"",
     "id": "02bn639743829387ohm5",
@@ -28,7 +32,7 @@ def members_response
     "status": "ACTIVE"
   })
 
-  member2 = ::Google::Apis::AdminDirectoryV1::Member.new({
+  member2 = ::Google::Apis::AdminDirectoryV1::Member.new(**{
     "kind": "admin#directory#member",
     "etag": "\"TQEIrASO8Jwul60cVbfvfw\"",
     "id": "02bn6wsx1pmohm5",
@@ -38,14 +42,14 @@ def members_response
     "status": "ACTIVE"
   })
 
-  members = ::Google::Apis::AdminDirectoryV1::Members.new(fixture("members.list"))
+  members = ::Google::Apis::AdminDirectoryV1::Members.new(**fixture("members.list"))
   members.members.push(member1, member2)
 
   members
 end
 
 def groups_response
-  group1 = ::Google::Apis::AdminDirectoryV1::Group.new ({
+  group1 = ::Google::Apis::AdminDirectoryV1::Group.new(**{
     "kind": "admin#directory#group",
     "id": "YEzMnTFD3lHpzXEf1qMR3A",
     "etag": "\"D_RQuq1sD2FjO9T0lOwwNg\"",
@@ -56,7 +60,7 @@ def groups_response
     "adminCreated": true
   })
 
-  group2 = ::Google::Apis::AdminDirectoryV1::Group.new({
+  group2 = ::Google::Apis::AdminDirectoryV1::Group.new(**{
     "kind": "admin#directory#group",
     "id": "uPGsWWM-DHRM05DUn1rP8g",
     "etag": "\"nEb5hHa9V5Rfp-X_NWZBLA\"",
@@ -70,7 +74,7 @@ def groups_response
     ]
   })
 
-  groups = ::Google::Apis::AdminDirectoryV1::Groups.new(fixture("groups.list"))
+  groups = ::Google::Apis::AdminDirectoryV1::Groups.new(**fixture("groups.list"))
   groups.groups.push(group1, group2)
 
   groups
