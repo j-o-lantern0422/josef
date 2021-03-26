@@ -15,13 +15,7 @@ RSpec.describe Josef do
   }
   let(:actor) { "actor@sample.com" }
   describe "remote" do
-    before do
-      allow(josef).to receive(:client) { client }
-      allow(josef.client).to receive(:list_groups).and_return(response("groups.list"))
-      allow(josef.client).to receive(:list_members).and_return(response("members.list"))
-      allow(josef).to receive(:domains).and_return(domains)
-      allow(josef).to receive(:actor).and_return(actor)
-    end
+
     it "can fetch remote groups" do
       remote_groups = [
         {
