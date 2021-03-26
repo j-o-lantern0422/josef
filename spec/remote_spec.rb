@@ -25,12 +25,18 @@ RSpec.describe Josef do
     it "can fetch remote groups" do
       remote_groups = [
         {
-          :group_mail_address=>"test@ml.example.com",
-          :members=>["member@sample.com", "sample@ml.example.com"]
+          group_mail_address: "test@ml.example.com",
+          members: %w(
+            member@sample.com
+            sample@ml.example.com
+          )
         },
         {
-          :group_mail_address=>"sample@ml.sample.com",
-          :members=>["member@sample.com", "sample@ml.example.com"]
+          group_mail_address:"sample@ml.sample.com",
+          members: %w(
+            member@sample.com
+            sample@ml.example.com
+          )
         }
       ]
       expect(josef.remote).to eq remote_groups
