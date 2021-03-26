@@ -12,5 +12,5 @@
 
 vendor/bundle
 .env
-*.json
+credentials/*.json
 *.yml
