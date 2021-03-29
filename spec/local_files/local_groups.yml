@@ -1,0 +1,8 @@
+---
+- group_mail_address: test-group@example.com
+  members:
+  - member@example.com
+- group_mail_address: test-ml@ml.example.com
+  members:
+  - member@example.com
+  - member@sample.com
