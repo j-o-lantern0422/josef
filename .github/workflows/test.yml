@@ -6,6 +6,7 @@ on:
 jobs:
   test:
     name: DryRun
+    runs-on: ubuntu-latest
     container:
       image: ruby:3.0.0
     steps:
