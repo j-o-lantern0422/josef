@@ -18,4 +18,4 @@ jobs:
           bundle install --quiet
           git checkout .
       - name: test
-        run: bundle exec rake test
+        run: bundle exec rake spec
