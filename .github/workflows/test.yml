@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    name: DryRun
+    name: test
     runs-on: ubuntu-latest
     container:
       image: ruby:3.0.0
