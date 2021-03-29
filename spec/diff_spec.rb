@@ -1,7 +1,7 @@
-require_relative "../lib/josef/remote.rb"
+require_relative "../lib/josef/diff.rb"
 
 class JosefRemoteTest
-  include Josef::Remote
+  include Josef::Diff
 end
 RSpec.describe Josef do
   let(:client) { Google::Apis::AdminDirectoryV1::DirectoryService.new }
@@ -14,7 +14,16 @@ RSpec.describe Josef do
     }
   }
   let(:actor) { "actor@sample.com" }
-  describe "remote" do
+
+  let(:local_groups) {[
+    {
+      "group_mail_address": "group1@ml.example.com",
+      "members": ["member1@example.com", "member2@example.com"]
+    }
+  ]}
+
+  let(:remote_groups) {[ ]}
+  describe "diff" do
     before do
       allow(josef).to receive(:client) { client }
       allow(josef.client).to receive(:list_groups).and_return(response("groups.list"))
@@ -22,24 +31,14 @@ RSpec.describe Josef do
       allow(josef).to receive(:domains).and_return(domains)
       allow(josef).to receive(:actor).and_return(actor)
     end
-    it "can fetch remote groups" do
-      remote_groups = [
-        {
-          group_mail_address: "test@ml.example.com",
-          members: %w(
-            member@sample.com
-            sample@ml.example.com
-          )
-        },
-        {
-          group_mail_address:"sample@ml.sample.com",
-          members: %w(
-            member@sample.com
-            sample@ml.example.com
-          )
-        }
-      ]
-      expect(josef.remote).to eq remote_groups
+    it "new local group will be create" do
+      new_group = {
+        "group_mail_address": "newgroup@ml.example.com",
+        "members": []
+      }
+      allow(josef).to receive(:remote).and_return(remote_groups)
+
+      expect(josef.be_create?(new_group)).to eq true
     end
   end
 end
