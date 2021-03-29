@@ -36,67 +36,85 @@ RSpec.describe Josef do
       allow(josef).to receive(:actor).and_return(actor)
       allow(josef).to receive(:exculued_groups).and_return(excluded_groups)
     end
-    it "new local group will be create" do
-      new_group = {
-        "group_mail_address": "newgroup@ml.example.com",
-        "members": []
-      }
-      allow(josef).to receive(:remote).and_return(remote_groups)
 
-      expect(josef.be_create?(new_group)).to eq true
+    describe "be_craete method" do
+      it "is will be create, when local group added" do
+        new_group = {
+          "group_mail_address": "newgroup@ml.example.com",
+          "members": []
+        }
+        allow(josef).to receive(:remote).and_return(remote_groups)
+
+        expect(josef.be_create?(new_group)).to eq true
+      end
+
+      it "is not will be create, when local group didn't added" do
+        remote_groups = local_groups
+        allow(josef).to receive(:remote).and_return(remote_groups)
+
+        expect(josef.be_create?(local_groups.sample)).to eq false
+      end
     end
 
-    it "was not changed, not be create" do
-      remote_groups = local_groups
-      allow(josef).to receive(:remote).and_return(remote_groups)
+    describe "be_delete method" do
+      it "is will be delete, when local group deleted" do
+        be_delete_group = {
+          "group_mail_address": "deleted_group@ml.example.com",
+          "members": []
+        }
+        remote_groups.push(local_groups).push(be_delete_group)
+        allow(josef).to receive(:remote).and_return(remote_groups)
 
-      expect(josef.be_create?(local_groups.sample)).to eq false
+        expect(josef.be_delete?(remote_groups)).to eq true
+      end
+
+      it "is not will be delete, when local group didn't deleted" do
+        remote_groups = local_groups
+        allow(josef).to receive(:remote).and_return(remote_groups)
+
+        expect(josef.be_create?(local_groups.sample)).to eq false
+      end
     end
 
-    it "deleted local group will be derete" do
-      be_delete_group = {
-        "group_mail_address": "deleted_group@ml.example.com",
-        "members": []
-      }
-      remote_groups.push(local_groups).push(be_delete_group)
-      allow(josef).to receive(:remote).and_return(remote_groups)
+    describe "changed method" do
+      it "is be change members, when remote groups have more groups" do
+        remote_groups = local_groups.deep_dup
+        remote_groups.sample[:members].push("new_member@example.com")
 
-      expect(josef.be_delete?(remote_groups)).to eq true
+        allow(josef).to receive(:remote).and_return(remote_groups)
+        expect(josef.changed?(local_groups.sample)).to eq true
+      end
+
+      it "is be change members, when local groups have more groups" do
+        remote_groups = local_groups.deep_dup
+        local_groups.first[:members].push("new_member@example.com")
+
+        allow(josef).to receive(:remote).and_return(remote_groups)
+        expect(josef.changed?(local_groups.first)).to eq true
+      end
+
+      it "is not be change members, when local and remote groups are same" do
+        remote_groups = local_groups
+        allow(josef).to receive(:remote).and_return(remote_groups)
+
+        expect(josef.changed?(local_groups.sample)).to eq false
+      end
     end
 
-    it "was not deleted, not be delete" do
-      remote_groups = local_groups
-      allow(josef).to receive(:remote).and_return(remote_groups)
+    describe "should_be_targeted? method" do
+      it "will targeting group, when it was not exclueded group" do
+        expect(josef.should_be_tareget?(local_groups.sample)).to eq true
+      end
 
-      expect(josef.be_create?(local_groups.sample)).to eq false
+      it "will not targeting group, when it was exclueded group" do
+        expected_local_group = {
+          "group_mail_address": excluded_groups.first,
+          "members": []
+        }
+
+        expect(josef.should_be_tareget?(expected_local_group)).to eq false
+      end
     end
 
-    it "was changed, will be change members" do
-      remote_groups = local_groups.deep_dup
-      remote_groups.sample[:members].push("new_member@example.com")
-
-      allow(josef).to receive(:remote).and_return(remote_groups)
-      expect(josef.changed?(local_groups.sample)).to eq true
-    end
-
-    it "was not changed, will not be change members" do
-      remote_groups = local_groups
-      allow(josef).to receive(:remote).and_return(remote_groups)
-
-      expect(josef.changed?(local_groups.sample)).to eq false
-    end
-
-    it "was not exclueded group, will targeting group" do
-      expect(josef.should_be_tareget?(local_groups.sample)).to eq true
-    end
-
-    it "was excluded group, will not targeting group" do
-      expected_local_group = {
-        "group_mail_address": excluded_groups.first,
-        "members": []
-      }
-
-      expect(josef.should_be_tareget?(expected_local_group)).to eq false
-    end
   end
 end
