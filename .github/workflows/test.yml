@@ -1,0 +1,20 @@
+name: test
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    name: DryRun
+    container:
+      image: ruby:3.0.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup
+        run: |
+          gem install bundler
+          bundle config set path 'vendor/bundle'
+          bundle install --quiet
+          git checkout .
+      - name: test
+        run: bundle exec rake test
