@@ -10,7 +10,14 @@ module Josef
     def local!(local_file)
       return [] if local_file.nil?
 
-      YAML.load_file(local_file).map{|h| h.deep_symbolize_keys}
+      local_groups = YAML.load_file(local_file).map{|h| h.deep_symbolize_keys}
+      local_groups.map do | group |
+        if group[:members].nil?
+          group[:members] = []
+        end
+      end
+
+      local_groups
     end
 
     def exculued?(group_mail_address)

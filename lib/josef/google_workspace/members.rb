@@ -17,7 +17,7 @@ module Josef
           members.concat(res.members)
         end
 
-        members
+        members || []
       end
 
       def add_member(group_mail_address, member_mail_address)
