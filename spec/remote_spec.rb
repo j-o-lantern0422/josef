@@ -43,7 +43,7 @@ RSpec.describe Josef do
     end
 
     it "members is nil, load as empty array" do
-      allow(josef.client).to receive(:list_members).and_return(nil)
+      allow(josef.client).to receive(:list_members).and_return(::Google::Apis::AdminDirectoryV1::Members.new)
       remote_groups = [
         {
           group_mail_address: "test@ml.example.com",

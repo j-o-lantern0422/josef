@@ -51,7 +51,7 @@ RSpec.describe Josef do
            members: []
           }
         ]
-        expect(josef.local(local_groups_path)).to eq local_groups
+        expect(josef.local(emtpy_members_local_groups_path))).to eq local_groups
 
     end
   end
