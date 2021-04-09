@@ -13,7 +13,6 @@ module Josef
 
     def changed?(local_group)
       remote_group = remote.find{|g| g[:group_mail_address] == local_group[:group_mail_address]}
-      return false if local_group[:members].nil? || remote_group[:members].nil?
       return false if local_group[:members].sort == remote_group[:members].sort
 
       true
@@ -40,8 +39,8 @@ module Josef
           puts "#{local_group[:group_mail_address]} will be change:#{mode}"
           remote_members = remote.find{|g| g[:group_mail_address] == local_group[:group_mail_address]}[:members]
 
-          add = local_group[:members] - remote_members
-          del = remote_members - local_group[:members]
+          add = local_group[:members].to_a - remote_members.to_a
+          del = remote_members.to_a - local_group[:members].to_a
 
           add.each do | add_member |
             puts "+ #{add_member}"
