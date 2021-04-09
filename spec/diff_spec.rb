@@ -100,17 +100,17 @@ RSpec.describe Josef do
         expect(josef.changed?(local_groups.sample)).to eq false
       end
 
-      it "is changed members when local members is nil" do
+      it "is changed members when local members is empty" do
         remote_groups = local_groups.deep_dup
-        local_groups.first[:members] = nil
+        local_groups.first[:members] = []
 
         allow(josef).to receive(:remote).and_return(remote_groups)
         expect(josef.changed?(local_groups.first)).to eq true
       end
 
-      it "is changed members when remote members is nil" do
+      it "is changed members when remote members is empty" do
         remote_groups = local_groups.deep_dup
-        remote_groups.first[:members] = nil
+        remote_groups.first[:members] = []
 
         allow(josef).to receive(:remote).and_return(remote_groups)
         expect(josef.changed?(local_groups.first)).to eq true

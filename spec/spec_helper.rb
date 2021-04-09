@@ -21,6 +21,10 @@ def local_groups_path
   "spec/local_files/local_groups.yml"
 end
 
+def emtpy_members_local_groups_path
+  "spec/local_files/empty_members_local_groups.yml"
+end
+
 def members_response
   member1 = ::Google::Apis::AdminDirectoryV1::Member.new(**{
     "kind": "admin#directory#member",

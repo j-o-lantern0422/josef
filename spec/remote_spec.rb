@@ -41,5 +41,20 @@ RSpec.describe Josef do
       ]
       expect(josef.remote).to eq remote_groups
     end
+
+    it "members is nil, load as empty array" do
+      allow(josef.client).to receive(:list_members).and_return(nil)
+      remote_groups = [
+        {
+          group_mail_address: "test@ml.example.com",
+          members: []
+        },
+        {
+          group_mail_address:"sample@ml.sample.com",
+          members: []
+        }
+      ]
+      expect(josef.remote).to eq remote_groups
+    end
   end
 end
