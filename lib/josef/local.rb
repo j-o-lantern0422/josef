@@ -11,7 +11,7 @@ module Josef
       return [] if local_file.nil?
 
       local_groups = YAML.load_file(local_file).map{|h| h.deep_symbolize_keys}
-      local_groups.map do | group |
+      local_groups.each do | group |
         if group[:members].nil?
           group[:members] = []
         end
