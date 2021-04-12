@@ -13,7 +13,6 @@ module Josef
 
     def changed?(local_group)
       remote_group = remote.find{|g| g[:group_mail_address] == local_group[:group_mail_address]}
-      return false if local_group[:members].nil? || remote_group[:members].nil?
       return false if local_group[:members].sort == remote_group[:members].sort
 
       true
