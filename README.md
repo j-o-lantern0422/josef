@@ -78,10 +78,6 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 
 ## Future
 
-### Spec
-
-Josef not have test.
-
 ### Oauth Token?
 
 This tool manages Google Groups based on yaml. Therefore, I think that the administrator of Google WorkSpace may run it in the local environment. If the purpose is achieved with the service account and you want to use oauth authentication, we will handle it.
