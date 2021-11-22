@@ -61,6 +61,11 @@ exclued_groups:
 josef apply ./local_group_file.yml --exclude ./excluded_groups.yml
 ```
 
+## Notes
+
+When the email address of a Google Group changes, josef will delete the Google Group with the old name and create a Google Group with the new name.
+This is because the josef configuration file uses the Google Groups email address as the unique ID of the Google Groups, and although we considered using the internal ID available in the API, we decided not to implement it because it would make the configuration file less user-friendly. We considered using the internal ID available in the API, but decided not to implement it because it would not be a user-friendly configuration file. If you have a good idea, please create an Issue and let me know:)
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
