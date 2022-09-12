@@ -29,15 +29,15 @@ module Josef
         group = ::Google::Apis::AdminDirectoryV1::Group.new(email: group_mail_address)
 
         client.insert_group(group)
+        @_groups = nil
       end
 
       def delete_group(group_mail_address)
         group = groups.find{|g| g.email == group_mail_address}
 
         client.delete_group(group.id)
+        @_groups = nil
       end
     end
   end
 end
-
-
