@@ -24,12 +24,16 @@ module Josef
         member = ::Google::Apis::AdminDirectoryV1::Member.new(email: member_mail_address)
         group = groups.find{|g| g.email == group_mail_address}
         client.insert_member(group.id, member)
+      rescue => e
+        $stderr.puts "Failed to add #{member_mail_address} to #{group_mail_address} group. #{e}"
       end
 
       def del_member(group_mail_address, member_mail_address)
         group = groups.find{|g| g.email == group_mail_address}
         member = members_by(group).find{ |member| member.email == member_mail_address }
         client.delete_member(group.id, member.id)
+      rescue => e
+        $stderr.puts "Failed to remove #{member_mail_address} from #{group_mail_address} group. #{e}"
       end
     end
   end
